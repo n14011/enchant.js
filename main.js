@@ -68,18 +68,62 @@ var Pig = Class.create(Sprite,{
       }
     }
 });
+gs.assets.map={
+  height:16
+    ,width:16
+    ,path:"assets/map0.png"
+};
+var myMap = Class.create(Map,{
+  initialize:function(){
+    var asset = gs.assets.map;
+    Map.call(this,asset.width,asset.height);
+    this.image = game.assets[asset.path];
+    this.loadData(this.map());
+    stages.addChild(this);
+  },
+map:function(){
+  return([
+
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+    ]);
+}
+});
+
+
+
 
 window.onload = function(){
   game   = new eCore("mintcream");
   stages = game.rootScene;
 
   game.onload = function(){
+    map =new myMap();
     player = new Pig();
     stages.addChild(player);
-   // stages.addChild(new Label("template for enchant js"));
-//    stages.on("touchend",function(){
- //     game.end();
-  //  });
+    // stages.addChild(new Label("template for enchant js"));
+    //    stages.on("touchend",function(){
+    //     game.end();
+    //  });
   };
 
   game.start();
