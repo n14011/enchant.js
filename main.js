@@ -68,6 +68,54 @@ var Pig = Class.create(Sprite,{
       }
     }
 });
+
+gs.assets.teki={
+  width:32
+    ,height:32
+,path:"assets/chara1.png"
+,frame:[0]
+};
+var DIRECTION = {RIGHT:1,LEFT:-1};
+var teki = Class.create(Sprite,{
+  initialize:function(){
+  var asset = gs.assets.teki;
+  Sprite.call(this,asset.width,asset.height);
+  this.image = game.assets[asset.path];
+  this.frame = asset.frame;
+  this.moveTo(0,0);
+  this.speed =3;
+  this.direction=1;
+  },
+  move:function(){
+  this.x+=this.speed*this.direction;
+  },
+    turn:function(){
+    this.direction*=-1;
+    this.scleX*=-1;
+    this.y+= ~~(this.height /2)
+    },
+    remove:function(){
+    stages.removeChild(this);
+    },
+
+    onenterframe:function(){
+    if(this.x<0 || this.x>gs.canvas.width-this.width){
+    this.turn();
+    }
+    if(this.y>gs.canvas.height){
+    this.remove();
+    }
+    this.move();
+    if(this.within(player,23)){
+    game.end();
+    }
+    }
+});
+
+
+
+
+
 gs.assets.map={
   height:16
     ,width:16
@@ -120,10 +168,12 @@ window.onload = function(){
     map =new myMap();
     player = new Pig();
     stages.addChild(player);
-    // stages.addChild(new Label("template for enchant js"));
-    //    stages.on("touchend",function(){
-    //     game.end();
-    //  });
+
+    stages.on("enterframe",function(){
+    if(this.age % 10===0){
+    stages.addChild(new teki);
+    }
+    });
   };
 
   game.start();
